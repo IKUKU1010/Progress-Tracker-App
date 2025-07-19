@@ -32,8 +32,9 @@ pip install -r requirements.txt
 ### 3.Db Conenctions
 - navigate to app/main and update vault ip :
 
-```export VAULT_ADDR=
-   export VAULT_ROLE_ID==
+```
+   export VAULT_ADDR=
+   export VAULT_ROLE_ID=
    export VAULT_SECRET_ID=
    
 ```
