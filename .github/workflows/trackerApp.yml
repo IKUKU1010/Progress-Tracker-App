@@ -1,0 +1,54 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
+          # Ensure Docker is running
+          sudo systemctl start docker || true
+
+          # Cleanup old project
+          rm -rf Progress-Tracker-App
+
+          # Clone latest code
+          git clone https://github.com/IKUKU1010/Progress-Tracker-App.git
+          cd Progress-Tracker-App
+
+          # Build Docker image with latest base
+          docker build --pull -t student-tracker:latest .
+
+          # Stop and remove old container
+          docker stop student-tracker || true
+          docker rm student-tracker || true
+
+          # Create persistent data directory
+          mkdir -p /home/ec2-user/app-data
+
+          # Run container with volume and environment variables
+          docker run -d --name student-tracker -p 8080:8000 \
+            -v /home/ec2-user/app-data:/app/data \
+            -e VAULT_ADDR=${{ secrets.VAULT_ADDR }} \
+            -e VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }} \
+            -e VAULT_SECRET_ID=${{ secrets.VAULT_SECRET_ID }} \
+            student-tracker:latest
+
+          # log container output
+          docker logs -f student-tracker > /home/ec2-user/app-data/app.log 2>&1 &
+        EOF
