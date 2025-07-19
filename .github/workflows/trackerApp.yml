@@ -42,7 +42,7 @@ jobs:
           mkdir -p /home/ec2-user/app-data
 
           # Run container with volume and environment variables
-          docker run -d --name student-tracker -p 8080:8000 \
+          docker run -d --name student-tracker -p 8080:8080 \
             -v /home/ec2-user/app-data:/app/data \
             -e VAULT_ADDR=${{ secrets.VAULT_ADDR }} \
             -e VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }} \
