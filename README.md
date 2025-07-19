@@ -84,7 +84,7 @@ docker push your-dockerhub-username/student-tracker
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST   | `/register?name=YourName` | Register a new student |
-| GET    | `/status/{student_id}`    | View registration and progress of student |
+| GET    | `/status/{student_id}`    | View registration and progress of students |
 | POST   | `/update/{student_id}?week=week1` | Update progress by week |
 
 ---
