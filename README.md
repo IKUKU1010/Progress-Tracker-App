@@ -57,7 +57,7 @@ Visit `http://vmip:8000` to see your app in action.
 
 ### 1. Build Docker Image
 ```bash
-docker build -t student-tracker:latest .
+docker build -t student-tracker:v1.20 .
 ```
 
 ### 2. Run Docker Container
