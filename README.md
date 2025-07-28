@@ -57,12 +57,12 @@ Visit `http://vmip:8000` to see your app in action.
 
 ### 1. Build Docker Image
 ```bash
-docker build -t student-tracker:v1.20 .
+docker build -t student-tracker:v1.30 .
 ```
 
 ### 2. Run Docker Container
 ```bash
-docker run -d -p 8000:8000 -e VAULT_ADDR -e VAULT_ROLE_ID  -e VAULT_SECRET_ID student-tracker:v1.20
+docker run -d -p 8000:8000 -e VAULT_ADDR -e VAULT_ROLE_ID  -e VAULT_SECRET_ID student-tracker:v1.30
 ```
 
 ### 3. Push to Docker Hub
