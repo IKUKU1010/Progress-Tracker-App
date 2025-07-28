@@ -62,7 +62,7 @@ docker build -t student-tracker:latest .
 
 ### 2. Run Docker Container
 ```bash
-docker run -d -p 8000:8000 -e VAULT_ADDR -e VAULT_ROLE_ID  -e VAULT_SECRET_ID student-tracker:latest
+docker run -d -p 8000:8000 -e VAULT_ADDR -e VAULT_ROLE_ID  -e VAULT_SECRET_ID student-tracker:v1.20
 ```
 
 ### 3. Push to Docker Hub
